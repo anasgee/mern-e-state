@@ -7,6 +7,7 @@ import {
 import React, { useState } from "react";
 import app from "../firebase";
 import {useSelector} from "react-redux"
+import { useNavigate } from "react-router-dom";
 
 
 const CreateListing = () => {
@@ -34,6 +35,12 @@ const CreateListing = () => {
     const [loading,setLoading] = useState(false);
     const [error,setError]=useState(false);
     const {currentUser} = useSelector((state)=>state.user);
+
+
+
+
+    // 
+    const navigate = useNavigate();
    
     console.log(formData);
 
@@ -142,7 +149,9 @@ if(e.target.id ==="sale" || e.target.id==="rent"){
                     userRef:currentUser._id
                 })} )
             const data= await res.json();
+            navigate(`/listing/${data._id}`);
                 setLoading(false);
+            
             if(data.success===false){
                 setError(data.message);
                 setLoading(false)
