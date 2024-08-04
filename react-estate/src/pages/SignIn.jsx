@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
- import {signInStart,signInFailure,signInSuccess} from "../redux/user/userSlice";
+import {signInStart,signInFailure,signInSuccess} from "../redux/user/userSlice";
+import Oath from '../components/Oath';
 
 const SignIn = () => {
 
@@ -62,6 +63,7 @@ const handleSubmit=async(e)=>{
           <input onChange={handleChange} className='p-3 rounded-xl shadow-xl outline-none' type="email"  placeholder='email' id='email'/>
           <input onChange={handleChange} className='p-3 rounded-xl shadow-xl outline-none' type="text"  placeholder='Password' id='password'/>
           <button onClick={handleSubmit} className='bg-slate-700 text-white p-3 rounded-xl uppercase hover:opacity-90 disabled:opacity-80'>{loading? "Loading....":"Sign In"}</button>
+          <Oath/>
       </form>
       <p className='text-red-900'> {error}</p>
       <div className='flex gap-2 mt-5'>

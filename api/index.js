@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv')
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 
@@ -12,14 +13,18 @@ const Port = process.env.PORT || 5000;
 
 const userRouter = require('./routes/userRoute');
 const authRouter = require('./routes/authRoute');
+const listingRoute = require('./routes/listingRoute');
 
 
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes end
-app.use('/api/user',userRouter)
-app.use('/api/auth',authRouter)
+app.use('/api/user',userRouter);
+app.use('/api/auth',authRouter);
+app.use('/api/listing',listingRoute);
+
 
 // Middleware to handle errors
 app.use((err, req, res, next)=>{

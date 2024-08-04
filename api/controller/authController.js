@@ -19,11 +19,6 @@ catch(err){
 }
 }
 
-
-
-
-
-
 // SignIn  module
  const signin = async(req,res,next)=>{
 try{
@@ -42,7 +37,7 @@ try{
             const token = jwt.sign({id:user._id},process.env.SECRET_KEY);
             const {password:pass, ...rest}=user._doc;
 
-            res.cookie('token',token, {httpOnly:true}).status(200).json(rest)
+            res.cookie('access_token',token, {httpOnly:true}).status(200).json(rest)
             // res.status(200).json("logged in successfully")
         }
 }catch(err){
@@ -52,6 +47,44 @@ try{
 
 
 
+// Google authentication
+
+const google=async(req,res,next)=>{
+    try{
+        const user= await User.findOne({email:req.body.email});
+        if(user){
+            const token = jwt.sign({id:user._id},process.env.SECRET_KEY);
+            const {password:pass , ...rest}=user._doc;
+            res.cookie('access_token',token,{httpOnly:true}).status(200).json(rest)
+        }
+        else{
+                const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-2);
+                const hashedPassword = bcrypt.hashSync(generatedPassword,10);
+                const newUser= await User({username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4),password:hashedPassword,avatar:req.body.photo,email:req.body.email})
+                await newUser.save();
+                const token= jwt.sign({id:newUser._id},process.env.SECRET_KEY);
+                const {password:pass,...rest}= newUser._doc;
+                res.cookie('access_token',token,{httpOnly:true}).status(200).json(rest);
+
+        }
+    }          
+    catch(err){
+        console.log(err)
+    }
+
+
+}
+const signout=async(req,res,next)=>{
+
+    try{    
+        res.clearCookie("access_token");
+        res.status(200).json(`User ${req.user} has been logged Out successfully`);
+    }catch(error){
+        next(error)
+    }
+    
+}
+
 
 
 
@@ -59,4 +92,6 @@ try{
 module.exports= {
     signup,
     signin,
+    google,
+    signout,
 }
