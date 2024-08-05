@@ -6,6 +6,7 @@ import app from "../firebase";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutFailure, signOutStart, signOutSuccess, updateUserFailure,updateUserStart,updateUserSuccess } from '../redux/user/userSlice';
+import { current } from '@reduxjs/toolkit';
 
 
 
@@ -20,6 +21,8 @@ const [file,setFile]=useState(undefined);
 const [perc,setPerc] = useState(0);
 const [fileError, setFileError]= useState(false);
 const [formData,setFormData] = useState({});
+const [listingsError,setListingsError] =useState(false);
+const [listings,setListings] = useState([]);
 //________________________________________________________________-   Modal Start
 const [show, setShow] = useState(false);
 
@@ -34,7 +37,7 @@ const [modal2show, setShowModal2] = useState(false);
 
 
 //__________________________________________________________________Modal End
-console.log(formData);
+// console.log(formData);
 const dispatch = useDispatch();
 // console.log(perc);
 // console.log(fileError);
@@ -155,6 +158,48 @@ const handleDeleteUser=async()=>{
 
 
 
+const handleShowListings = async()=>{
+
+  try{
+   
+    const res = await fetch(`/api/user/listings/${currentUser._id} ` );
+    
+    const data = await res.json();
+    setListings(data)
+    if(data.length<1){
+      setListingsError("You Don't have any listing yet, Kindly upload first to show listings")
+    }
+    if(data.success ===false){
+      setListingsError(true);
+      return;
+    }
+
+  }catch(error){
+    setListingsError( true)
+  }
+}
+
+const handleDeleteListing=async(listingId)=>{
+  try{
+    const res = await fetch( `/api/listing/delete/${listingId}`,{
+      method:"DELETE",
+    })
+    const data = await res.json();
+    if(data.success===false){
+      console.log(data.message);
+      return;
+    }
+    setListings((prev)=>prev.filter((listing)=>listing.id !==listingId))
+
+  }catch(error){
+    console.log(error)
+  }
+
+}
+const handleEditListing=()=>{
+
+}
+
   useEffect(()=>{
     if(file){
       handleSetImage(file);
@@ -182,9 +227,26 @@ const handleDeleteUser=async()=>{
         <div className='text-red-800 font-semibold flex justify-between p-4'>
           {/* <p onClick={handleDeleteUser}>Delete Account</p> */}
           <p className='cursor-pointer '  onClick={handleShow}>Delete Account</p>
-         
           <p className='cursor-pointer' onClick={handleShow2}>Sign Out</p>
         </div>
+
+            <button onClick={handleShowListings} className='text-green-700 w-full'>Show Listings</button>
+            <p className='text-red-700'>{listingsError ? `${listingsError}`:""} </p>
+            {
+                listings && listings.length>0 && listings.map((listing)=><div key={listing._id} className='border items-center rounded-lg flex justify-between p-3'>
+                           <NavLink className="w-16 h-16" to={`/listing/${listing._id}`}>
+                           <img src={listing.imageURL[0]} alt="" />
+                           </NavLink>
+                           <NavLink className="flex-1" to={`/listing/${listing._id}`}>
+                            <p>{listing.name} </p>
+                           </NavLink>
+                           <div className='flex flex-col'>
+                            <button type='button' onClick={()=>handleDeleteListing(listing._id)} className='text-red-700'>Delete</button>
+                            <button type='button' onClick={handleEditListing} className='text-green-700'>Edit</button>
+                           </div>
+                          </div>
+                )
+            }
         {/* ------------------------------------------------ Modal --------------*/}
         <Modal  show={show} onHide={handleClose} centered  >
           <div style={{background:" rgb(241,245,241)"}} className='rounded-2'>
