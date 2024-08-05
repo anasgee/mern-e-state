@@ -8,6 +8,8 @@ import SignUp from './pages/SignUp';
 import Header from './components/Header';
 import ProtectedRoute from './pages/ProtectedRoute';
 import CreateListing from "./pages/CreateListing";
+import UpdateListing from './pages/UpdateListing';
+
 
 const App = () => {
   return  <>
@@ -19,6 +21,7 @@ const App = () => {
     <Route element={<ProtectedRoute/>}>
     <Route path='/profile' element={<Profile/>}/>
     <Route path='/createListing' element={<CreateListing/>}/>
+    <Route path='/updateListing/:id' element={<UpdateListing/>}/>
     </Route>
     <Route path='/signin' element={<SignIn/>}/>
     <Route path='/signup' element={<SignUp/>}/>

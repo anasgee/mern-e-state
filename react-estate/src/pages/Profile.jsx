@@ -196,9 +196,7 @@ const handleDeleteListing=async(listingId)=>{
   }
 
 }
-const handleEditListing=()=>{
 
-}
 
   useEffect(()=>{
     if(file){
@@ -242,7 +240,7 @@ const handleEditListing=()=>{
                            </NavLink>
                            <div className='flex flex-col'>
                             <button type='button' onClick={()=>handleDeleteListing(listing._id)} className='text-red-700'>Delete</button>
-                            <button type='button' onClick={handleEditListing} className='text-green-700'>Edit</button>
+                            <NavLink className='text-green-700' to={`/updateListing/${listing._id}` }><button >Edit</button></NavLink>
                            </div>
                           </div>
                 )
