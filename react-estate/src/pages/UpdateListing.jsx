@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 
+
 const UpdateListing = () => {
     const [files, setFiles] = useState([]);
     const [formData, setFormData] = useState({
@@ -45,6 +46,7 @@ const UpdateListing = () => {
     const params = useParams();
    
     console.log(formData);
+
 
     const handleSetImage = (e) => {
         if (files.length > 0 && files.length + formData.imageURL.length < 7) {
@@ -118,7 +120,7 @@ if(e.target.id ==="sale" || e.target.id==="rent"){
     if(e.target.id==="offer" || e.target.id==="furnished" || e.target.id==="parking" ){
     setFormData({
         ...formData,
-        [e.target.id]:e.target.checked
+        [e.target.id]:e.target.checked,
     })
     }
     if(e.target.type==="number" || e.target.type==="text" || e.target.type==="textarea"){
@@ -150,37 +152,43 @@ if(e.target.id ==="sale" || e.target.id==="rent"){
         e.preventDefault();
 
         try{
-            setLoading(true);
+          
             setError(false);
             if(formData.imageURL.length<1){
-                setError("You must upload at least one image")
-                setLoading(false)
+               return setError("You must upload at least one image")
             }
-            if(formData.regularPrice < formData.discountedPrice){
-            setError("Discounted Price must be less than regular price");
-            setLoading(false)
-            }
+            if(+formData.regularPrice < +formData.discountedPrice){
+           return setError("Discounted Price must be less than regular price");
+        }                         
+           setLoading(true);
+           setError(false);
+
             const res = await fetch(`/api/listing/update/${params.id}`,{
                 method: "POST",
                 headers:{
                     'Content-Type':"application/json",
+                    "accept":"application/json",
                 },
+                
                 body:JSON.stringify({...formData,
                     userRef:currentUser._id
                 })} )
             const data= await res.json();
+
             setLoading(false)
-            navigate(`/listing/${data._id}`);
-                setLoading(false);
+            // setLoading(false);
             
             if(data.success===false){
                 setError(data.message);
                 setLoading(false)
             }
                 
-        }catch(error){
-            setError(error)
+        } 
+        catch (error) {
+            setError(error.message);
+            setLoading(false);
         }
+        
     }
 
 
@@ -338,6 +346,7 @@ if(e.target.id ==="sale" || e.target.id==="rent"){
                        {loading? "Loading...":"Update Listing"}
                     </button>  
                     <p className="text-red-700 text-sm">{error} </p>
+
                 </div>
             </form>
         </main>

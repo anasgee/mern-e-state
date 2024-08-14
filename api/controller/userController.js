@@ -38,7 +38,6 @@ const updateUser = async(req,res,next)=>{
 
 
     
-// Delete USer Functionality
 
 const deleteUser = async(req,res,next)=>{
     if(req.user.id!==req.params.id) return next(errorHandler(401,"HAHAHA Ye na ho paye ga, apna delete kro account bhai saab"));
@@ -66,8 +65,17 @@ const getlistings=async(req,res,next)=>{
     }
 
 }
+const getUser = async(req,res,next)=>{
+    const user = await User.findById(req.params.id);
+    if(!user){
+        next(errorHandler(404,"User Not Found"));
+    }
+    const {password:pass,...rest}= user._doc;
+
+    res.status(200).json(rest);
+}
 
 module.exports = {
-    test,
+    test,getUser,
     updateUser,deleteUser,getlistings
 };

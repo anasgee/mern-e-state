@@ -9,6 +9,7 @@ import Header from './components/Header';
 import ProtectedRoute from './pages/ProtectedRoute';
 import CreateListing from "./pages/CreateListing";
 import UpdateListing from './pages/UpdateListing';
+import Listing from './pages/Listing.jsx';
 
 
 const App = () => {
@@ -18,10 +19,12 @@ const App = () => {
   <Routes>
     <Route path='/' element={<Home/>}/>
     <Route path='/about' element={<About/>}/>
+    <Route path='/listing/:id' element={<Listing/>}/>
     <Route element={<ProtectedRoute/>}>
     <Route path='/profile' element={<Profile/>}/>
     <Route path='/createListing' element={<CreateListing/>}/>
     <Route path='/updateListing/:id' element={<UpdateListing/>}/>
+    
     </Route>
     <Route path='/signin' element={<SignIn/>}/>
     <Route path='/signup' element={<SignUp/>}/>
