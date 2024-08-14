@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Contact from "../components/Contact"
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import spinner from "../assets/spinner.gif";
+// import spinner from "../assets/spinner.gif";
 import { ColorRing } from 'react-loader-spinner'
 import {useSelector} from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -34,7 +34,7 @@ const Listing = () => {
     SwiperCore.use([Scrollbar]);
 
 
-    useEffect(()=>{
+    useEffect(()=>{                    
         const fetchListing = async()=>{
             try{
                 setLoading(true);
@@ -103,6 +103,7 @@ onClick={()=>{
     },2000);
 }}
 />
+{copy && <p className='fixed top-[13%] right[1%] p-3 rounded bg-white fw-bolder text-sm z-10 right-[3%] text-red-900'> Copied to clipboard </p>}
             <h5 className='mt-6 text-2xl fw-bold'>
                 {listingData.name} - {' '}
                 {/* {listingData.offer ? listingData.discountedPrice.toLocaleString('en-US'):listingData.regularPrice.toLocaleString('en-US')} */}
