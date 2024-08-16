@@ -105,12 +105,9 @@ onClick={()=>{
 />
 {copy && <p className='fixed top-[13%] right[1%] p-3 rounded bg-white fw-bolder text-sm z-10 right-[3%] text-red-900'> Copied to clipboard </p>}
             <h5 className='mt-6 text-2xl fw-bold'>
-                {listingData.name} - {' '}
-                {/* {listingData.offer ? listingData.discountedPrice.toLocaleString('en-US'):listingData.regularPrice.toLocaleString('en-US')} */}
-                regular price {listingData.regularPrice}$ /month
-               {listingData.offer && ( <span className='text-green-700'> Discount {listingData.discountedPrice} $/month </span>)}
-                {/* {listingData.type ==="sale" && "/month"}
-                {listingData.type==="rent" && "/month"} */}
+                {listingData.name} - ${''}
+                {listingData.offer ? listingData.discountedPrice.toLocaleString('en-US'):listingData.regularPrice.toLocaleString('en-US')}
+                {listingData.type==="rent" && "/month"} 
             </h5>
                 <p className='d-flex gap-3 mt-2  items-center'>
                     <FaMapMarkedAlt className='text-green-700 '/>
@@ -122,12 +119,9 @@ onClick={()=>{
                 </p>
 
             {
-                listingData.offer? <p className='mt-5 bg-green-700 w-full max-w-[200px] p-2 rounded text-white fw-bold text-center '>
-                ${+listingData.regularPrice - +listingData.discountedPrice}
-            </p>:<p className='mt-5 bg-green-700 w-full max-w-[200px] p-2 rounded text-white fw-bold text-center '>
-                        ${+listingData.regularPrice - +listingData.discountedPrice}
-                    </p>
-                
+                listingData.offer && (<p className='mt-5 bg-green-700 w-full max-w-[200px] p-2 rounded text-white fw-bold text-center '>
+                ${+listingData.regularPrice - +listingData.discountedPrice} OFF
+            </p>)
             }
                </div>
                

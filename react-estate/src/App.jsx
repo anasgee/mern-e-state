@@ -10,6 +10,7 @@ import ProtectedRoute from './pages/ProtectedRoute';
 import CreateListing from "./pages/CreateListing";
 import UpdateListing from './pages/UpdateListing';
 import Listing from './pages/Listing.jsx';
+import Search from './pages/Search.jsx';
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
     <Route path='/' element={<Home/>}/>
     <Route path='/about' element={<About/>}/>
     <Route path='/listing/:id' element={<Listing/>}/>
+    <Route path='/search' element={<Search/>}/>
     <Route element={<ProtectedRoute/>}>
     <Route path='/profile' element={<Profile/>}/>
     <Route path='/createListing' element={<CreateListing/>}/>
