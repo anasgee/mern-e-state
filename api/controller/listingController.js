@@ -89,11 +89,12 @@ const getListings= async(req,res,next)=>{
         }
 
         let type = req.query.type;
-        if(type===undefined || type==="false"){
+        if(type===undefined || type==="all"){
             type = {$in: ["rent","sale"]}
         }
 
         const searchTerm = req.query.searchTerm || "";
+       
         const sort = req.query.sort || "createdAt";
         const order = req.query.order || "desc";
 
@@ -104,7 +105,7 @@ const getListings= async(req,res,next)=>{
             parking,
             furnished,
             type,
-        }).sort({[sort]:order}).limit().skip(startIndex);
+        }).sort({[sort]:order}).limit(limit).skip(startIndex);
 
    return res.status(200).json(listings);
     }catch(error){

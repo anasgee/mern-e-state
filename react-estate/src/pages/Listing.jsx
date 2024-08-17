@@ -84,7 +84,6 @@ const Listing = () => {
                 {
                     listingData.imageURL.map((url)=><SwiperSlide key={url}>
                              <div className='h-[200px] sm:h-[500px] ' style={{background:`url(${url}) center no-repeat ` ,backgroundSize:"cover"}}>
-
                              </div>
                             
                         </SwiperSlide>

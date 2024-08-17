@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ColorRing } from 'react-loader-spinner';
 import FilterListing from './FilterListing';
+// import { SendToMobileRounded } from '@mui/icons-material';
 
 
 const Search = () => {
@@ -9,6 +10,7 @@ const Search = () => {
     const navigate = useNavigate();
     const[ loading,setLoading]= useState(false);
     const[listing,setListing] = useState([]);
+    const [more,setMore] = useState(false)
     console.log(listing)
     const [searchData,setSearchData] =useState({
         searchTerm:"",
@@ -24,7 +26,7 @@ const Search = () => {
 
     useEffect(()=>{
    
-        const urlParams = new URLSearchParams(location.search);
+        const urlParams = new URLSearchParams(window.location.search);
         const searchTermURL = urlParams.get("searchTerm");
         const typeURL = urlParams.get("type");
         const offerURL = urlParams.get("offer");
@@ -53,7 +55,11 @@ const Search = () => {
             const searchQuery = urlParams.toString();
             const res = await fetch(`/api/listing/getListings?${searchQuery}`);
             const data = await res.json();
-         
+            if (data.length > 8) {
+                setMore(true);
+              } else {
+                setMore(false);
+              }
             setListing(data);
             setLoading(false);
            }catch(error){
@@ -63,7 +69,7 @@ const Search = () => {
         }
         getData();
 
-},[location.search])
+},[location.search]);
 
 
     // console.log(searchData);
@@ -102,6 +108,19 @@ const Search = () => {
         navigate(`/search?${searchQuery}`);
     }
 
+    const showMoreHandle =async()=>{
+            const noOfLists = listing.length;
+            const startIndex = noOfLists;
+            const urlParams = new URLSearchParams(location.search);
+            urlParams.set("startIndex",startIndex);
+            const querySearch = urlParams.toString();
+            const res = await fetch(`/api/listing/getListings?${querySearch }`);
+            const data = await res.json();
+            if(data.length<8){
+                setMore(false);
+            }
+            setListing([...listing, ...data]);
+    }
 
   return (
     <div className=' d-flex flex-col md:flex-row gap-3 '>
@@ -159,9 +178,9 @@ const Search = () => {
                </form>
         </div>
         <div className='p-4'>
-                <h1 className='text-center fw-bolder text-3xl pb-5 mt-3'>
+                <h1 className=' border-b-2 w-full fw-bolder text-3xl pb-5 mt-3'>
                     {
-                        !loading && listing.length===0? "Listing Not Found":"Your Listings" 
+                        !loading && listing.length===0? "Listing Not Found":"Listing Result" 
                     } 
 </h1>
 {loading && <ColorRing
@@ -179,6 +198,11 @@ const Search = () => {
         
   {!loading && listing && listing.map((listing)=><FilterListing key={listing._id} listing = {listing} />)}
   </div>
+  <div className='text-center w-full mt-4 text-green-700 fw-bold' >
+    {
+        more && <button onClick={showMoreHandle}>Show More</button>
+    }</div>
+
         </div>
 
     </div>

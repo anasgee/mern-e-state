@@ -5,9 +5,9 @@ import { NavLink } from 'react-router-dom'
 
 const FilterListing = ({listing}) => {
   return (
-    <div  className=' items-center overflow-hidden w-full sm:w-[270px] bg-white shadow-2xl p-2 rounded'>
+    <div  className=' items-center overflow-hidden w-full sm:w-[300px] bg-white shadow-2xl p-2 rounded'>
         <NavLink to={`/listing/${listing._id}` }className="d-flex flex-col gap-3" >
-           <img className='w-[300px] sm:h-[200px] transition-scale hover:scale-105 duration-300' src={listing.imageURL[0]} alt="listing image" />
+           <img className='w-full sm:w-[300px] sm:h-[200px] transition-scale hover:scale-105 duration-300' src={listing.imageURL[0]} alt="listing image" />
             <div className="d-flex flex-col gap-2">
             <p className="line-clamp-1 fw-bold">{listing.name} </p>
             <div className="d-flex items-center gap-2">

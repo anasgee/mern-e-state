@@ -136,10 +136,11 @@ if(e.target.id ==="sale" || e.target.id==="rent"){
                 setError("You must upload at least one image")
                 setLoading(false)
             }
-            if(formData.regularPrice < formData.discountedPrice){
+           else if(formData.regularPrice < formData.discountedPrice){
             setError("Discounted Price must be less than regular price");
             setLoading(false)
             }
+            else{
             const res = await fetch('/api/listing/create',{
                 method: "POST",
                 headers:{
@@ -149,14 +150,16 @@ if(e.target.id ==="sale" || e.target.id==="rent"){
                     userRef:currentUser._id
                 })} )
             const data= await res.json();
-            navigate(`/listing/${data._id}`);
+          
+                navigate(`/listing/${data._id}`);
+    
                 setLoading(false);
             
             if(data.success===false){
                 setError(data.message);
                 setLoading(false)
             }
-                
+                }
         }catch(error){
             setError(error)
         }
