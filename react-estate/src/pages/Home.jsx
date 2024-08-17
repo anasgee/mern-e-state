@@ -79,7 +79,7 @@ console.log(offerListing);
         </Swiper>
 </div>
 
-          <div  >
+          <div className='sm:p-5' >
               <h1 className='fw-bold mt-3'>Recent Offers</h1>
               <NavLink className="text-blue-700 text-sm" to={`/search?offer=true`}>Show more offers</NavLink>
             <div className='d-flex gap-3 flex-wrap mt-3'>
@@ -97,7 +97,7 @@ console.log(offerListing);
 
 {/* Rent */}
 
-<div  >
+<div  className='sm:p-5' >
               <h1 className='fw-bold mt-3'>Houses For Rent</h1>
               <NavLink className="text-blue-700 text-sm" to={`/search?type=rent`}>Show more offers</NavLink>
             <div className='d-flex gap-3 flex-wrap mt-3'>
@@ -113,7 +113,7 @@ console.log(offerListing);
 
 
 {/* Sale */}
-<div  >
+<div  className='sm:p-5' >
               <h1 className='fw-bold mt-3'>Houses For Sale </h1>
               <NavLink className="text-blue-700 text-sm" to={`/search?type=sale`}>Show more offers</NavLink>
             <div className='d-flex gap-3 flex-wrap mt-3'>

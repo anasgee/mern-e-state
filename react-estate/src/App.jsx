@@ -11,6 +11,7 @@ import CreateListing from "./pages/CreateListing";
 import UpdateListing from './pages/UpdateListing';
 import Listing from './pages/Listing.jsx';
 import Search from './pages/Search.jsx';
+import Footer from "./components/Footer.jsx"
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
     <Route path='/signin' element={<SignIn/>}/>
     <Route path='/signup' element={<SignUp/>}/>
   </Routes>
+  {/* <Footer/> */}
   </BrowserRouter>
   </>
   
