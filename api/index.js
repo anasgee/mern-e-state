@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require('dotenv')
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const path = require("path")
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ const listingRoute = require('./routes/listingRoute');
 
 
 
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -24,6 +26,11 @@ app.use(cookieParser());
 app.use('/api/user',userRouter);
 app.use('/api/auth',authRouter);
 app.use('/api/listing',listingRoute);
+
+app.use(express.static(path.join(__dirname, "/react-estate/dist")));
+app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,"react-estate","dist","index.html"));
+})
 
 
 // Middleware to handle errors
@@ -42,6 +49,7 @@ app.use((err, req, res, next)=>{
 mongoose.connect(process.env.MONGO_URL).then(()=>console.log("MongoDB connected")).catch((err)=>{
     console.log(err)
 })
+
 
 
 

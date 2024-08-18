@@ -118,12 +118,13 @@ try{
   const response = await fetch(`/api/user/update/${currentUser._id}`,{
     method:"POST",
     headers:{
-      'Content-Type':'application/json'
+      'Content-Type':'application/json',
+      'accept':'application/json'
     },
     body:JSON.stringify(formData),
 
   });
-  const data= response.json();
+  const data=await response.json();
   if(data.success === false){
     dispatch(updateUserFailure(data.message));
     return;
@@ -142,7 +143,7 @@ const handleDeleteUser=async()=>{
         method:"DELETE",
 
       });
-      const data=await res.json();
+      const data= await res.json();
       if(data.success===false){
         dispatch(deleteUserFailure(data.message));
         return;

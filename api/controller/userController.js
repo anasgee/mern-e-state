@@ -24,20 +24,19 @@ const updateUser = async(req,res,next)=>{
             password:req.body.password,
             email:req.body.email,
             avatar:req.body.avatar
-        }
-    },{new:true})
+        },
+    },{new:true});
 
     const {password,...rest}=updateUser._doc;
     res.status(201).json(rest);
+    // res.status(201).json({ success: true, user: rest });
     } 
     catch(error){
-        next(errorHandler(505,error));
+        next(err);
     }
 
 }
 
-
-    
 
 const deleteUser = async(req,res,next)=>{
     if(req.user.id!==req.params.id) return next(errorHandler(401,"HAHAHA Ye na ho paye ga, apna delete kro account bhai saab"));

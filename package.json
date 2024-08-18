@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devStart": "nodemon api/index.js",
-    "start": "node api/index.js"
+    "start": "node api/index.js",
+    "build":"npm install && npm install --prefix react-estate && npm run build --prefix react-estate"
+    
   },
   "author": "Muhammad Anas https://www.linkedin.com/in/muhammadanasraza",
   "license": "ISC",

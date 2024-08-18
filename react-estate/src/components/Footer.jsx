@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div >
       
-<footer class="  shadow bg-slate-200 shadow-md absolute w-full bottom-0">
+<footer class="  shadow bg-slate-200 shadow-md absolute w-full ">
     <div class="w-full mx-auto max-w-xl  p-4 md:flex md:items-center md:justify-between">
       <span class="text-sm  sm:text-center">© 2024 <a href="https://www.github.com/anasgee" class="hover:underline">AnasGee</a>. All Rights Reserved.
     </span>
