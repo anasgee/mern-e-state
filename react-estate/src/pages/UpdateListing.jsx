@@ -167,7 +167,7 @@ if(e.target.id ==="sale" || e.target.id==="rent"){
                 method: "POST",
                 headers:{
                     'Content-Type':"application/json",
-                    "accept":"application/json",
+                    "Accept":"application/json",
                 },
                 
                 body:JSON.stringify({...formData,

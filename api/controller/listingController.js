@@ -48,7 +48,7 @@ const updateListing = async(req,res,next)=>{
             req.params.id,
             req.body,{new:true}
         )
-        res.status(200).json()
+        res.status(200).json(updateListing);
     }catch(error){
         next(error);
     }
