@@ -3,7 +3,8 @@ const app = express();
 const dotenv = require('dotenv')
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const path = require("path")
+const path = require("path");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -21,16 +22,17 @@ const listingRoute = require('./routes/listingRoute');
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
 // Routes end
 app.use('/api/user',userRouter);
 app.use('/api/auth',authRouter);
 app.use('/api/listing',listingRoute);
 
-app.use(express.static(path.join(__dirname, "/react-estate/dist")));
-app.get("*",(req,res)=>{
-    res.sendFile(path.join(__dirname,"react-estate","dist","index.html"));
-})
+// app.use(express.static(path.join(__dirname, "./react-estate/dist")));
+// app.get("*",(req,res)=>{
+//     res.sendFile(path.join(__dirname,"./react-estate","dist","index.html"));
+// })
 
 
 // Middleware to handle errors

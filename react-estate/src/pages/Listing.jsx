@@ -25,7 +25,7 @@ const Listing = () => {
 
     // useState Hooks
     const [listingData,setListingData]= useState(null);
-    const [error , setError]=useState(false);
+    const [error , setError]=useState(false);   
     const [loading,setLoading]= useState(false);
     const[copy,setCopied] = useState(false);
     const [contact,setContact ]  = useState(false);
@@ -38,7 +38,8 @@ const Listing = () => {
         const fetchListing = async()=>{
             try{
                 setLoading(true);
-                const response = await fetch(`/api/listing/get/${params.id}`);
+                // const response = await fetch(`/api/listing/get/${params.id}`);
+                const response = await fetch(`https://mern-e-state-5000.vercel.app/api/listing/get/${params.id}`);
                 const data = await response.json();
                
                if(data.success===false){
