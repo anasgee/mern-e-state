@@ -38,8 +38,8 @@ const Listing = () => {
         const fetchListing = async()=>{
             try{
                 setLoading(true);
-                // const response = await fetch(`/api/listing/get/${params.id}`);
-                const response = await fetch(`https://mern-e-state-5000.vercel.app/api/listing/get/${params.id}`);
+                const response = await fetch(`/api/listing/get/${params.id}`);
+                // const response = await fetch(`https://mern-e-state-5000.vercel.app/api/listing/get/${params.id}`);
                 const data = await response.json();
                
                if(data.success===false){

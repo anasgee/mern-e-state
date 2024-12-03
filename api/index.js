@@ -22,7 +22,11 @@ const listingRoute = require('./routes/listingRoute');
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+    origin: 'https://mern-e-state.vercel.app', // Allow requests from your frontend origin
+    methods: 'GET, POST, PUT, DELETE', // Allow the necessary HTTP methods
+    credentials: true, // If you need cookies or authentication
+  }));
 
 // Routes end
 app.use('/api/user',userRouter);
