@@ -9,7 +9,7 @@ export default defineConfig({
       '/api': {
         target: 'https://mern-e-state-5000.vercel.app' || 'http://localhost:5000',
         changeOrigin: true,
-        // secure: false,
+        secure: true,
         // rewrite: (path) => path.replace(/^\/api/, ''), // Removes '/api' from the path
       },
     },
